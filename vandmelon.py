@@ -5,6 +5,7 @@ import os
 
 currentDir=os.listdir()
 extension = '.csv'
+
 def importCSV(directory,ext):
 	global csv
 	csv = {}	
@@ -16,3 +17,36 @@ def importCSV(directory,ext):
 	print('The following files have been imported: \n' + str(files)+'\n')
 
 importCSV(currentDir,extension)
+
+print('####################################')
+print('Welcome to opgave 1')
+print('####################################\n')
+
+
+print('####################################')
+print('Welcome to opgave 2')
+print('####################################\n')
+
+print('####################################')
+print('Welcome to opgave 3')
+print('####################################\n')
+
+
+print('####################################')
+print('Welcome to opgave 4')
+print('####################################\n')
+
+
+print('####################################')
+print('Welcome to opgave 5')
+print('####################################\n')
+
+
+print('####################################')
+print('Welcome to opgave 6')
+print('####################################\n')
+
+
+print('####################################')
+print('Welcome to opgave 7')
+print('####################################\n')
