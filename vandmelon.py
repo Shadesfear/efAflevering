@@ -2,8 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-import os
+from sympy import *
 
+import os
+message= """
+"""
 currentDir=os.listdir()
 extension = '.csv'
 
@@ -22,6 +25,8 @@ def f2(x,a,b):
 	return a*x**2 + b
 def f3(x,c,d,e,f):
 	return c*x**2 + d*np.sin(e*x+f)
+def f4(x,a,b):
+	return a*x**b
 
 importCSV(currentDir,extension)
 
@@ -78,7 +83,8 @@ print('The best values for c, d, e & f\n')
 print(popt)
 print('The best values for the variance on c, d, e & f\n')
 print(np.diag(pcov))
-print
+print()
+
 print('####################################')
 print('Welcome to opgave 4')
 print('####################################\n')
@@ -87,13 +93,43 @@ print('####################################\n')
 print('####################################')
 print('Welcome to opgave 5')
 print('####################################\n')
-
+f = open('calculations.tex','w')
+f.write(message)
+f.close
+y=1.23
+a=0.7
+b=6.7
+sigma_y=0.05
+sigma_a=0.1
+sigma_b=0.4
+sigma_x=1.8
+print('Lets use the error propagation law to calculate x with errors\n')
+print('if for whatever reason you want to see the calculations i have generated a latex document with the calculations.')
+print('we have: \n y = 1.23, sigma_y = 0.05 \n a = 0.7, sigma_a = 0.1 \n b = 6.7, sigma_b = 0.4')
+x = (y**2+b)/a
+print('we get that sigma_x  = ' + str(sigma_x))
+print('Therefore x = ' +str(round(x,1)) +'+-' + str(sigma_x)+'\n')
 
 print('####################################')
 print('Welcome to opgave 6')
 print('####################################\n')
+a = 0.2
+b = 1.9
+x = csv['exc6'][1:,0]
+y = csv['exc6'][1:,1]
+e = csv['exc6'][1:,2]
 
+model=f4(x,a,b)
+res = model - y
 
+plt.figure(3)
+plt.errorbar(x,res,yerr=e,fmt='ro')
+#plt.plot(x,res, 'ro')
+plt.plot([0, 18], [0, 0], 'k--', lw=2)
+plt.title('Residual plot')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
 print('####################################')
 print('Welcome to opgave 7')
 print('####################################\n')
