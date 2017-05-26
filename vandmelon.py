@@ -67,12 +67,18 @@ print(np.diag(pcov))
 #plt.plot(x,f2(x,*popt))
 #plt.plot(x,f2(x,2.1,0.45))
 #plt.show()
-
+print()
 print('####################################')
 print('Welcome to opgave 3')
 print('####################################\n')
+print('We want to fit the data to the model y=c*x^2 + d sin(e*x+f)')
+popt, pcov = curve_fit(f3, x, y, sigma=yeps)
 
-
+print('The best values for c, d, e & f\n')
+print(popt)
+print('The best values for the variance on c, d, e & f\n')
+print(np.diag(pcov))
+print
 print('####################################')
 print('Welcome to opgave 4')
 print('####################################\n')
