@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 import os
 
 currentDir=os.listdir()
@@ -17,6 +18,10 @@ def importCSV(directory,ext):
 	print('The following files have been imported: \n' + str(files)+'\n')
 def f1(t,f,tau):
 	return np.exp(-t/tau)*np.sin(2*np.pi*f*t)
+def f2(x,a,b):
+	return a*x**2 + b
+def f3(x,c,d,e,f):
+	return c*x**2 + d*np.sin(e*x+f)
 
 importCSV(currentDir,extension)
 
@@ -40,10 +45,28 @@ plt.ylabel('Signal [mV]')
 first_legend = plt.legend(handles = [line1], loc=1)
 ax = plt.gca().add_artist(first_legend)
 second_legend = plt.legend(handles = [line2], loc=4)
-plt.show()
+#plt.show()
 print('####################################')
 print('Welcome to opgave 2')
 print('####################################\n')
+x = csv['exc2'][1:,0]
+y = csv['exc2'][1:,1]
+yeps = csv['exc2'][1:,2]
+ydata = csv['exc2'][1:,1]+csv['exc2'][1:,2]
+
+print('We want to fit the data to the model y=a x^2 + b')
+
+popt, pcov = curve_fit(f2, x, y, sigma=yeps)
+print('The best values for a & b \n')
+print(popt)
+print()
+print('The best values for the variance on a & b\n')
+print(np.diag(pcov))
+#plt.figure(2)
+#plt.plot(x,y,'ro')
+#plt.plot(x,f2(x,*popt))
+#plt.plot(x,f2(x,2.1,0.45))
+#plt.show()
 
 print('####################################')
 print('Welcome to opgave 3')
