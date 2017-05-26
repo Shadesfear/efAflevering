@@ -1,12 +1,56 @@
-import pandas as pd
+﻿import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from scipy.stats import chisquare
 from sympy import *
-
 import os
-message= """
+
+#This is just needed for later, you can skip the latex part
+message = r""" %% AMS-LaTeX Created with the Wolfram Language : www.wolfram.com
+
+\documentclass{article}
+\usepackage{amsmath, amssymb, graphics, setspace}
+
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}[1]{{}}
+
+\newcounter{mathematicapage}
+\begin{document}
+
+\begin{doublespace}
+\noindent\(\pmb{x\text{:=}\frac{y^2+b}{a};}\\
+\pmb{\sigma _y\text{:=}0.05;}\\
+\pmb{\sigma _a\text{:=}0.1;}\\
+\pmb{\sigma _b\text{:=}0.4;}\\
+\pmb{\sigma _x=D[x,y]^2*\sigma _y{}^2+D[x,a]^2*\sigma _a{}^2+D[x,b]^2*\sigma _b{}^2}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\frac{\text{{``}0.16{''}}}{a^2}+\frac{\text{{``}0.01{''}} y^2}{a^2}+\frac{\text{{``}0.01{''}} \left(b+y^2\right)^2}{a^4}}\\
+\pmb{D[x,y]^2}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{y\text{:=}1.23;}\\
+\pmb{a\text{:=}0.7;}\\
+\pmb{b\text{:=}6.7;}\\
+\pmb{\text{Out}[38]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(3.16672\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(\pmb{\text{Sqrt}[\text{Out}[54]]}\)
+\end{doublespace}
+
+\begin{doublespace}
+\noindent\(1.77953\)
+\end{doublespace}
+
+\end{document}
 """
 currentDir=os.listdir()
 extension = '.csv'
@@ -100,6 +144,7 @@ print('####################################')
 print('Welcome to opgave 5')
 print('####################################\n')
 f = open('calculations.tex','w')
+
 f.write(message)
 f.close
 y=1.23
@@ -135,10 +180,10 @@ plt.errorbar(x,res,yerr=e,fmt='ro')
 plt.plot([0, 18], [0, 0], 'k--', lw=2)
 plt.title('Residual plot')
 plt.xlabel('x')
-plt.ylabel('y')
+plt.ylabel('Residual')
 a = plt.axes([0.65, 0.6, 0.2, 0.2])
 n, bins, patches = plt.hist(res, 30, normed=1)
-plt.title('Stuff')
+plt.title('Histogram')
 plt.xticks([])
 plt.yticks([])
 print('####################################')
@@ -167,6 +212,11 @@ for i in x:
 newmean = np.mean(weightedList)
 newstd = np.std(weightedList)
 print('The new mean and new std are in order ' + str(newmean) + ' and ' + str(newstd))
-plt.show()
 
+
+print('\n\n\n#########################')
+print('This is the end, thanks for running this script')
+print('Regards Christopher Carman')
+print('#########################')
+plt.show()
 
