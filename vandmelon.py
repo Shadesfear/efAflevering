@@ -10,6 +10,7 @@ message= """
 currentDir=os.listdir()
 extension = '.csv'
 
+#Import funntion for data in directory
 def importCSV(directory,ext):
 	global csv
 	csv = {}	
@@ -19,6 +20,7 @@ def importCSV(directory,ext):
 			csv[x[:-4]] = np.genfromtxt(x, delimiter=",")
 			files.append(x)
 	print('The following files have been imported: \n' + str(files)+'\n')
+#functions for different opgaver
 def f1(t,f,tau):
 	return np.exp(-t/tau)*np.sin(2*np.pi*f*t)
 def f2(x,a,b):
@@ -27,7 +29,7 @@ def f3(x,c,d,e,f):
 	return c*x**2 + d*np.sin(e*x+f)
 def f4(x,a,b):
 	return a*x**b
-
+#Imports csv files in the current directory
 importCSV(currentDir,extension)
 
 print('####################################')
@@ -124,12 +126,41 @@ res = model - y
 
 plt.figure(3)
 plt.errorbar(x,res,yerr=e,fmt='ro')
-#plt.plot(x,res, 'ro')
 plt.plot([0, 18], [0, 0], 'k--', lw=2)
 plt.title('Residual plot')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.show()
+a = plt.axes([0.65, 0.6, 0.2, 0.2])
+n, bins, patches = plt.hist(res, 30, normed=1)
+plt.title('Stuff')
+plt.xticks([])
+plt.yticks([])
 print('####################################')
 print('Welcome to opgave 7')
 print('####################################\n')
+x = csv['exc7'][1:,0]
+y = csv['exc7'][1:,1]
+mean = np.mean(x)
+std = np.std(x)
+weightedList=[]
+print('The mean of the values are ' + str(mean))
+print('The std of the values are ' + str(std) + '\n')
+plt.figure(4)
+n, bins, patches = plt.hist(x,50,normed=1, color='g')
+plt.axvline(x.mean(), color='k', linestyle='dashed', linewidth=3)
+print('We need to remove the values that are less than 3x'+ str(round(std,1)) + 
+	' and the values that are greater that 3x' +str(round(std,1))+ '\n')
+for i in x:
+	if i > mean-3*std and i < mean+3*std:
+		weightedList.append(i)
+#print(weightedList)
+#f = open('test.csv','w')
+#for r in weightedList:
+#	f.write(str(r)+'\n')
+#f.close
+newmean = np.mean(weightedList)
+newstd = np.std(weightedList)
+print('The new mean and new std are in order ' + str(newmean) + ' and ' + str(newstd))
+plt.show()
+
+
