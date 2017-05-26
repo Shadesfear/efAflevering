@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from scipy.stats import chisquare
 from sympy import *
 
 import os
@@ -52,6 +53,7 @@ plt.ylabel('Signal [mV]')
 first_legend = plt.legend(handles = [line1], loc=1)
 ax = plt.gca().add_artist(first_legend)
 second_legend = plt.legend(handles = [line2], loc=4)
+plt.savefig('foo.png')
 #plt.show()
 print('####################################')
 print('Welcome to opgave 2')
@@ -79,18 +81,20 @@ print('####################################')
 print('Welcome to opgave 3')
 print('####################################\n')
 print('We want to fit the data to the model y=c*x^2 + d sin(e*x+f)')
-popt, pcov = curve_fit(f3, x, y, sigma=yeps)
+popt1, pcov1 = curve_fit(f3, x, y, sigma=yeps)
 
 print('The best values for c, d, e & f\n')
-print(popt)
+print(popt1)
 print('The best values for the variance on c, d, e & f\n')
-print(np.diag(pcov))
+print(np.diag(pcov1))
 print()
 
 print('####################################')
 print('Welcome to opgave 4')
 print('####################################\n')
-
+print('Here we calculate the chisquare for opgave 2: ' +str(chisquare(x,f2(x,*popt))))
+print('\n')
+print('here we calculate it for opgave 3: ' + str(chisquare(x,f3(x,*popt1))))
 
 print('####################################')
 print('Welcome to opgave 5')
@@ -115,6 +119,8 @@ print('Therefore x = ' +str(round(x,1)) +'+-' + str(sigma_x)+'\n')
 print('####################################')
 print('Welcome to opgave 6')
 print('####################################\n')
+
+print('There is no text for this part! Please wait for the plots to be generated')
 a = 0.2
 b = 1.9
 x = csv['exc6'][1:,0]
@@ -145,9 +151,9 @@ std = np.std(x)
 weightedList=[]
 print('The mean of the values are ' + str(mean))
 print('The std of the values are ' + str(std) + '\n')
-plt.figure(4)
-n, bins, patches = plt.hist(x,50,normed=1, color='g')
-plt.axvline(x.mean(), color='k', linestyle='dashed', linewidth=3)
+#plt.figure(4)
+#n, bins, patches = plt.hist(x,50,normed=1, color='g')
+#plt.axvline(x.mean(), color='k', linestyle='dashed', linewidth=3)
 print('We need to remove the values that are less than 3x'+ str(round(std,1)) + 
 	' and the values that are greater that 3x' +str(round(std,1))+ '\n')
 for i in x:
